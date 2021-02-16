@@ -43,6 +43,7 @@ type TestVars struct {
 	TCPEnabled        bool
 	SeederRate        int
 	DHTEnabled        bool
+	ProvidingEnabled  bool
 	LlEnabled         bool
 	Dialer            string
 	NumWaves          int
@@ -107,7 +108,9 @@ func getEnvVars(runenv *runtime.RunEnv) (*TestVars, error) {
 	if runenv.IsParamSet("number_waves") {
 		tv.NumWaves = runenv.IntParam("number_waves")
 	}
-
+	if runenv.IsParamSet("enable_providing") {
+		tv.ProvidingEnabled = runenv.BooleanParam("enable_providing")
+	}
 	bandwidths, err := utils.ParseIntArray(runenv.StringParam("bandwidth_mb"))
 	if err != nil {
 		return nil, err
